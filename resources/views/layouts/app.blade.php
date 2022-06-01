@@ -16,7 +16,10 @@
     <a class="nav-link" href="/articulo">Artículos</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/contactar">Contacto</a>
+    <a class="nav-link" href="/contactos">Contactos</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/contactar">Contactar</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="/acerca">Sobre nosotros</a>

@@ -8,7 +8,7 @@
 
 <div class="row">
   <div class="col-6">
-    <form method="post">
+    <form method="post" enctype='multipart/form-data'>
 @csrf
       <div class="card p-4">
 
@@ -21,7 +21,10 @@
     <label for="texto">Tu consulta</label>
     <input type="text" class="form-control" id="texto" name="texto" placeholder="Escribe aquí tu consutal">
   </div>
-
+  <div class="form-group">
+    <label for="texto" style="display:block">Tu imagen</label>
+    <input type="file" name="file" placeholder="Elige una foto" id="file">
+  </div>                 
       
       </div>
 

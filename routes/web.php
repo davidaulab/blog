@@ -9,7 +9,9 @@ use App\Mail\ContactNotification;
 
 // Controllers
 
-Route::get('/contactar', [ContactController::class, 'index']);
+Route::get('/contactar', [ContactController::class, 'create']);
+
+Route::get('/contactos', [ContactController::class, 'index']);
 
 Route::post('/contactar', [ContactController::class, 'store']);
 
@@ -17,6 +19,7 @@ Route::post('/contactar', [ContactController::class, 'store']);
 
 Route::get('/acerca', [AboutController::class, 'index']);
 
+Route::get('/', [ArticleController::class, 'index'])->name ('index');
 Route::get('/articulo', [ArticleController::class, 'index'])->name ('index');
 
 Route::get('/articulo/{id}', [ArticleController::class, 'show']);
