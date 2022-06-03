@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ArticleRequest;
+
+use Illuminate\Support\Facades\DB;
+use App\Models\Article;
 
 class ArticleController extends Controller
 {
 
-    public $arts =  array ();
+  
 public function __construct()
 {
-    array_push ($this->arts, array (1, 'Titulo artículo 1', 'Este sería el contenido de artículo 1 que no es muy largo'));
-    array_push ($this->arts, array (2, 'Titulo artículo 2', 'Este sería el contenido de artículo 2 que es el siguiente'));
-    array_push ($this->arts, array (3, 'Titulo artículo 3', 'Este sería el contenido de artículo 3 que es la suma de los dos anteriores'));
-    array_push ($this->arts, array (5, 'Titulo artículo 5', 'Este sería el contenido de artículo 5 que sigue la numeración de Fibonacci'));
-    array_push ($this->arts, array (8, 'Titulo artículo 8', 'Este sería el contenido de artículo 8 que ya es el último'));
-    
+      
 }
 
 
@@ -26,7 +25,12 @@ public function __construct()
      */
     public function index()
     {
-        return view('plt.index')->with ('arts', $this->arts);
+        /* $arts = DB::table('articles')
+        ->orderBy('created_at', 'desc')
+        ->get(); */
+        $arts = Article::orderByDesc('created_at')->get();
+ 
+        return view('plt.index', ['arts' => $arts]);
     }
 
         /**
@@ -36,14 +40,73 @@ public function __construct()
      */
     public function show ($id)
     {
-        $art = null;
-        $i = 0;
-        while (($art == null) && ($i < sizeof($this->arts))) {
-            if ($this->arts[$i][0] == $id) {
-                $art = $this->arts[$i];
+       
+        /*$art = DB::table('articles')
+                ->where('id', '=', $id)
+                ->first();
+        */
+        $art = Article::where('id', $id )->first ();
+        return view('plt.article')->with ('art', $art);
+    }
+  /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create ()
+    {
+       return view('plt.articlenew');
+    }
+
+   /**
+   * Ship the given order.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return \Illuminate\Http\Response
+   */
+    public function store (ArticleRequest $request) {
+        try {
+           
+            $name = $request->file('file')->getClientOriginalName();
+      
+            $path = $request->file('file')->move('files', $name);
+      
+            
+            $mass = true;
+
+            if ($mass == true) {
+                $art = Article::create([
+                        'titulo' => $request->input("titulo"), 
+                        'texto' => $request->input("texto"), 
+                        'img' => $path
+                ]);
             }
-            $i++;
-        }
-        return view('plt.article')->with ('arts', $art);
+            else {
+                $art = new Article;
+ 
+                $art->titulo = $request->input("titulo");
+                $art->texto = $request->input("texto");
+                $art->img = $path;
+         
+                $art->save();
+    
+            }
+            
+
+           /* DB::table('articles')->insert ([
+               'titulo' => $request->input("titulo"),
+               'texto' => $request->input("texto"),
+               'img' => $path,
+               'created_at' =>  \Carbon\Carbon::now(), 
+               'updated_at' => \Carbon\Carbon::now() 
+               
+              ]); */
+              return back()->with("success", "Artículo guardado correctamente"); 
+           } catch(\Illuminate\Database\QueryException $exception){ 
+               return back()->with ("error", "Algo ha ido mal: " . $exception->getMessage());
+           }
+
     }
 }
+
+

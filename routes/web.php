@@ -22,6 +22,9 @@ Route::get('/acerca', [AboutController::class, 'index']);
 Route::get('/', [ArticleController::class, 'index'])->name ('index');
 Route::get('/articulo', [ArticleController::class, 'index'])->name ('index');
 
+Route::get('/articulonew', [ArticleController::class, 'create'])->name('nuevoart');
+Route::post('/articulonew', [ArticleController::class, 'store']);
+
 Route::get('/articulo/{id}', [ArticleController::class, 'show']);
 
 

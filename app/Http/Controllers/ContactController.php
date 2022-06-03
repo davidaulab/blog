@@ -41,7 +41,9 @@ class ContactController extends Controller
       DB::table('contacts')->insert ([
          'email' => $request->input("email"),
          'msg' => $request->input("texto"),
-         'img' => $path
+         'img' => $path,
+         'created_at' =>  \Carbon\Carbon::now(), 
+         'updated_at' => \Carbon\Carbon::now() 
          
         ]);
          try {
