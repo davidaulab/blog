@@ -2,9 +2,9 @@
 
 
 
-@section ('titulo', 'Nuevo artículo')
+@section ('title', 'Nuevo artículo')
 
-@section ('contenido')
+@section ('content')
 
 <div class="row">
   <div class="col-6">
@@ -13,12 +13,12 @@
       <div class="card p-4">
 
       <div class="form-group">
-    <label for="titulo">Titulo</label>
-    <input type="titulo" class="form-control" id="titulo" name="titulo" aria-describedby="tituloHelp" placeholder="Título del artículo">
+    <label for="title">Título</label>
+    <input type="title" class="form-control" id="title" name="title" aria-describedby="titleHelp" placeholder="Título del artículo">
   </div>
   <div class="form-group">
-    <label for="texto">Tu consulta</label>
-    <textarea class="form-control" id="texto" name="texto" placeholder="Escribe aquí tu consutal"></textarea>
+    <label for="text">Contenido</label>
+    <textarea class="form-control" id="text" name="text" placeholder="Escribe aquí tu consutal"></textarea>
   </div>
   <div class="form-group">
     <label for="file" style="display:block">Imagen del artículo</label>

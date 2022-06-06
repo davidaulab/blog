@@ -2,9 +2,9 @@
 
 
 
-@section ('titulo', 'Sobre nosotros')
+@section ('title', 'Sobre nosotros')
 
-@section ('contenido')
+@section ('content')
 
 <p>Acumulamos la experiencia de más de veinte años he trabajado en el sector de la consultoría tecnología aportando soluciones globales a las principales empresas nacionales e internacionales con presencia en España.</p>
 

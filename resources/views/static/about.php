@@ -2,11 +2,11 @@
 <?php
 
 $arts =  array ();
-array_push ($arts, array (1, 'Titulo artículo 1', 'Este sería el contenido de artículo 1 que no es muy largo'));
-array_push ($arts, array (2, 'Titulo artículo 2', 'Este sería el contenido de artículo 2 que es el siguiente'));
-array_push ($arts, array (3, 'Titulo artículo 3', 'Este sería el contenido de artículo 3 que es la suma de los dos anteriores'));
-array_push ($arts, array (5, 'Titulo artículo 5', 'Este sería el contenido de artículo 5 que sigue la numeración de Fibonacci'));
-array_push ($arts, array (8, 'Titulo artículo 8', 'Este sería el contenido de artículo 8 que ya es el último'));
+array_push ($arts, array (1, 'title artículo 1', 'Este sería el content de artículo 1 que no es muy largo'));
+array_push ($arts, array (2, 'title artículo 2', 'Este sería el content de artículo 2 que es el siguiente'));
+array_push ($arts, array (3, 'title artículo 3', 'Este sería el content de artículo 3 que es la suma de los dos anteriores'));
+array_push ($arts, array (5, 'title artículo 5', 'Este sería el content de artículo 5 que sigue la numeración de Fibonacci'));
+array_push ($arts, array (8, 'title artículo 8', 'Este sería el content de artículo 8 que ya es el último'));
 
 ?>
 <!doctype html>
@@ -17,7 +17,7 @@ array_push ($arts, array (8, 'Titulo artículo 8', 'Este sería el contenido de 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Acerca de</title>
+    <title>about de</title>
 </head>
 <body class="m-4 row justify-content-center">
 

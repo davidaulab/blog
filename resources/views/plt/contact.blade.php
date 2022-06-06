@@ -2,9 +2,9 @@
 
 
 
-@section ('titulo', 'Contacta con nosotros')
+@section ('title', 'Contacta con nosotros')
 
-@section ('contenido')
+@section ('content')
 
 <div class="row">
   <div class="col-6">
@@ -18,11 +18,11 @@
     <small id="emailHelp" class="form-text text-muted">Nunca compartiremos tu email con nadie.</small>
   </div>
   <div class="form-group">
-    <label for="texto">Tu consulta</label>
-    <input type="text" class="form-control" id="texto" name="texto" placeholder="Escribe aquí tu consutal">
+    <label for="text">Tu consulta</label>
+    <input type="text" class="form-control" id="text" name="text" placeholder="Escribe aquí tu consutal">
   </div>
   <div class="form-group">
-    <label for="texto" style="display:block">Tu imagen</label>
+    <label for="text" style="display:block">Tu imagen</label>
     <input type="file" name="file" placeholder="Elige una foto" id="file">
   </div>                 
       

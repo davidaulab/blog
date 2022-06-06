@@ -2,9 +2,9 @@
 
 
 
-@section ('titulo', 'Listado de contactos')
+@section ('title', 'Listado de contacts')
 
-@section ('contenido')
+@section ('content')
 
 
 <table class="table table-striped table-primary">

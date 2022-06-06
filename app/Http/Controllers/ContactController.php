@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
 use App\Mail\ContactNotification;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
@@ -33,21 +34,26 @@ class ContactController extends Controller
 
      try {
       //$path = $request->file('file')->store('files', 'public');
+      
+      $path = $request->file('file')->store ('public/contacts');
+      
+      /*
       $name = $request->file('file')->getClientOriginalName();
 
-      $path = $request->file('file')->move('files', $name);
-
+      $request->file ('file')->fil
+      ->move('files', $name);
+*/
       
       DB::table('contacts')->insert ([
          'email' => $request->input("email"),
-         'msg' => $request->input("texto"),
-         'img' => $path,
+         'msg' => $request->input("text"),
+         'img' => Storage::url ($path),
          'created_at' =>  \Carbon\Carbon::now(), 
          'updated_at' => \Carbon\Carbon::now() 
          
         ]);
          try {
-            Mail::to("david.martinez@aulab.es")->send(new ContactNotification($request->input("texto"), $request->input("email")));
+            Mail::to("david.martinez@aulab.es")->send(new ContactNotification($request->input("text"), $request->input("email")));
             return back()->with("success", "Mensaje enviado correctamente");
          } catch (\Exception $exception) {
                return back()->with ("error", "Algo ha ido mal: " . $exception->getMessage());
@@ -57,7 +63,7 @@ class ContactController extends Controller
      }
      
       /*try {
-         Mail::to("david.martinez@aulab.es")->send(new ContactNotification($request->input("texto"), $request->input("email")));
+         Mail::to("david.martinez@aulab.es")->send(new ContactNotification($request->input("text"), $request->input("email")));
          return back()->with("success", "Mensaje enviado correctamente");
       } catch (\Exception $exception) {
             return back()->with ("error", "Algo ha ido mal: " . $exception->getMessage());
@@ -76,7 +82,7 @@ class ContactController extends Controller
     {
       $contacts = DB::table('contacts')->get();
  
-      return view('plt.contactos', ['contacts' => $contacts]);
+      return view('plt.contacts', ['contacts' => $contacts]);
 
     }
     

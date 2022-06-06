@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
 
+use Illuminate\Support\Facades\Storage;
+
 use Illuminate\Support\Facades\DB;
 use App\Models\Article;
 
@@ -45,8 +47,9 @@ public function __construct()
                 ->where('id', '=', $id)
                 ->first();
         */
-        $art = Article::where('id', $id )->first ();
-        return view('plt.article')->with ('art', $art);
+        $article = Article::findOrFail($id);
+        
+        return view('plt.article', compact ('article'));// ->with ('art', $art);
     }
   /**
      * Display the specified resource.
@@ -67,35 +70,34 @@ public function __construct()
     public function store (ArticleRequest $request) {
         try {
            
-            $name = $request->file('file')->getClientOriginalName();
+            $path = $request->file('file')->store ('public/contacts');
       
-            $path = $request->file('file')->move('files', $name);
-      
-            
-            $mass = true;
 
-            if ($mass == true) {
+
+            // mass storage
+            /*
                 $art = Article::create([
-                        'titulo' => $request->input("titulo"), 
-                        'texto' => $request->input("texto"), 
-                        'img' => $path
+                        'title' => $request->input("title"), 
+                        'text' => $request->input("text"), 
+                        'img' => Storage::url ($path)
                 ]);
-            }
-            else {
-                $art = new Article;
- 
-                $art->titulo = $request->input("titulo");
-                $art->texto = $request->input("texto");
-                $art->img = $path;
-         
-                $art->save();
+                */
+            
+
+            $art = new Article;
+
+            $art->title = $request->input("title");
+            $art->text = $request->input("text");
+            $art->img = Storage::url ($path);
+        
+            $art->save();
     
-            }
+
             
 
            /* DB::table('articles')->insert ([
-               'titulo' => $request->input("titulo"),
-               'texto' => $request->input("texto"),
+               'title' => $request->input("title"),
+               'text' => $request->input("text"),
                'img' => $path,
                'created_at' =>  \Carbon\Carbon::now(), 
                'updated_at' => \Carbon\Carbon::now() 
