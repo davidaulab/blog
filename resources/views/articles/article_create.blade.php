@@ -11,7 +11,7 @@
 
 <div class="row">
   <div class="col-6">
-    <form method="post" enctype='multipart/form-data'>
+    <form method="post" enctype='multipart/form-data' action="{{ route ('articles.store') }}">
 @csrf
       <div class="card p-4">
 

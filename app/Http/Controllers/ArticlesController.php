@@ -7,10 +7,9 @@ use App\Http\Requests\ArticleRequest;
 
 use Illuminate\Support\Facades\Storage;
 
-use Illuminate\Support\Facades\DB;
 use App\Models\Article;
 
-class ArticleController extends Controller
+class ArticlesController extends Controller
 {
 
   
@@ -30,9 +29,11 @@ public function __construct()
         /* $arts = DB::table('articles')
         ->orderBy('created_at', 'desc')
         ->get(); */
+        return view("articles.article_index", ["articles"=>Article::orderByDesc('created_at')->get()]);
+    
         $arts = Article::orderByDesc('created_at')->get();
  
-        return view('plt.index', ['arts' => $arts]);
+        return view('plt.index', ['articles' => $arts]);
     }
 
         /**
@@ -40,16 +41,18 @@ public function __construct()
      *
      * @return \Illuminate\Http\Response
      */
-    public function show ($id)
+    public function show (Article $article)
     {
        
         /*$art = DB::table('articles')
                 ->where('id', '=', $id)
                 ->first();
         */
-        $article = Article::findOrFail($id);
+        return view('articles.article_show', ["article" => $article, ]);
+
+       /* $article = Article::findOrFail($id);
         
-        return view('plt.article', compact ('article'));// ->with ('art', $art);
+        return view('plt.article', compact ('article'));// ->with ('art', $art); */
     }
   /**
      * Display the specified resource.
@@ -58,7 +61,39 @@ public function __construct()
      */
     public function create ()
     {
-       return view('plt.articlenew');
+      //DMM return view('plt.articlenew');
+      return view ('articles.article_create');
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param \App\Nivel $nivel
+     * @return \Illuminate\Http\Response
+     */
+    public function edit (Article $article)
+    {
+        return view("articles.article_edit", ["article" => $article, ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Nivel $nivel
+     * @return \Illuminate\Http\Response
+     */
+    public function update(ArticleRequest $request, Article $article)
+    {
+        
+       
+        $article->fill($request->input());
+        if ($request->hasFile('file')) {
+            $path = $request->file('file')->store ('public/articles');
+            $article->img = Storage::url ($path);
+        }
+
+        $article->saveOrFail();
+        return redirect()->route("articles.index")->with(["mensaje" => "Artículo actualizado"]);
     }
 
    /**
@@ -70,9 +105,13 @@ public function __construct()
     public function store (ArticleRequest $request) {
         try {
            
-            $path = $request->file('file')->store ('public/contacts');
+            $path = $request->file('file')->store ('public/articles');
       
 
+            $article = new Article($request->input());
+            $article->img = Storage::url ($path);
+            $article->saveOrFail();
+            return redirect()->route("articles.index")->with(["mensaje" => "Artículo creado",]);
 
             // mass storage
             /*
@@ -108,6 +147,17 @@ public function __construct()
                return back()->with ("error", "Algo ha ido mal: " . $exception->getMessage());
            }
 
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \App\Nivel $nivel
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Article $article)
+    {
+        $article->delete();
+        return redirect()->route("articles.index")->with(["mensaje" => "Artículo eliminado",]);
     }
 }
 

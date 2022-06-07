@@ -80,7 +80,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-      $contacts = DB::table('contacts')->get();
+      $contacts = DB::table('contacts')->simplePaginate(10);
  
       return view('plt.contacts', ['contacts' => $contacts]);
 

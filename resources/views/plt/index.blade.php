@@ -28,5 +28,8 @@
 </div>
 </div>
 
+@if (Auth::check())
 <p class="text-center mt-4"><a href="{{ route('newart') }}"  class="btn btn-warning">Nuevo artículo</a></p>
+@endif
+
 @endsection

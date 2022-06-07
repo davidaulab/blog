@@ -16,4 +16,9 @@ class Article extends Model
  * @var array
  */
 protected $guarded = [];
+
+protected $table = 'articles';
+
+protected $fillable = ['title', 'text', 'img'];
+
 }
